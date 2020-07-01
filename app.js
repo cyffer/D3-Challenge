@@ -3,7 +3,7 @@
 //This function returns a Promise with the data readed from the CSV file
 let getData = () => {
   return new Promise((resolve, reject) => {
-    var data = d3.csv("/D3_data_journalism/assets/data/data.csv", type);
+    var data = d3.csv("data.csv", type);
     if (data == undefined) {
       reject("There was an erro reading the CVS file");
       return false;
