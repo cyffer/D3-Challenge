@@ -3,7 +3,7 @@
 //This function returns a Promise with the data readed from the CSV file
 let getData = () => {
   return new Promise((resolve, reject) => {
-    var data = d3.csv("data.csv", type);
+    var data = d3.csv("/D3_data_journalism/assets/data/data.csv", type);
     if (data == undefined) {
       reject("There was an erro reading the CVS file");
       return false;
@@ -39,7 +39,7 @@ getData()
 
     console.log(newData);
 
-    //Adding xAxis
+    //Adding X Axis
     var x = d3
       .scaleLinear()
       .domain(d3.extent(newData, (d) => +d.poverty))
@@ -56,11 +56,6 @@ getData()
       .range([height, 0]);
     svg.append("g").call(d3.axisLeft(y));
 
-    var color = d3
-      .scaleOrdinal()
-      .domain(d3.extent(newData, (d) => d.abbr))
-      .range(["A7A5C6", "#8797B2", "#6D8A96", "5D707F", "66CED6"]);
-
     //Creating plots
     svg
       .append("g")
@@ -75,31 +70,30 @@ getData()
         return y(d.healthcare);
       })
       .attr("r", 15)
-      .style("fill", function (d) {
-        return color(d.abbr);
-      });
+      .style("fill", "lightblue");
 
     //Adding labels to circles
     svg
+      .append("g")
       .selectAll("text")
       .data(newData)
       .enter()
       .append("text")
+      .text(function (d) {
+        return d.abbr;
+      })
       .attr("x", function (d) {
         return x(d.poverty - 0.12);
       })
       .attr("y", function (d) {
         return y(d.healthcare - 0.15);
       })
-      .text(function (d) {
-        return d.abbr;
-      })
       .attr("font-size", "10px")
-      .attr("font-weight", "bold")
+      .attr("stroke", "black")
       .attr("text-color", "white")
       .attr("text-align", "center");
 
-    //Adding xAxis Title
+    //Adding X Axis Title
     svg
       .append("text")
       .attr("text-anchor", "end")
@@ -107,7 +101,7 @@ getData()
       .attr("y", height + margin.top + 20)
       .text("Poverty Percentage (%)");
 
-    //Adding yAxis Title
+    //Adding Y Axis Title
     svg
       .append("text")
       .attr("text-anchor", "end")
