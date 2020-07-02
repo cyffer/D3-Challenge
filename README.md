@@ -1,2 +1,4 @@
 # D3-Challenge
-Scatter Plot Describes Healthcare vs Poverty Among 50 States
+
+
+This scatter plot illustrates the distribution of healthcare vs poverty among 50 states and territories. The extent of healthcare coverage based on the 2014 ACS 1-year estimatesstates.
