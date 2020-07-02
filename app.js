@@ -39,7 +39,7 @@ getData()
 
     console.log(newData);
 
-    //Adding X Axis
+    //Adding xAxis
     var x = d3
       .scaleLinear()
       .domain(d3.extent(newData, (d) => +d.poverty))
@@ -83,31 +83,35 @@ getData()
         return d.abbr;
       })
       .attr("x", function (d) {
-        return x(d.poverty - 0.12);
+        return x(d.poverty);
       })
       .attr("y", function (d) {
-        return y(d.healthcare - 0.15);
+        return y(d.healthcare);
       })
+      .attr("text-anchor", "middle")
+      .attr("alignment-baseline", "central")
       .attr("font-size", "10px")
       .attr("stroke", "black")
-      .attr("text-color", "white")
+      .attr("fill", "white")
       .attr("text-align", "center");
 
-    //Adding X Axis Title
+    //Adding xAxis Title
     svg
       .append("text")
-      .attr("text-anchor", "end")
-      .attr("x", width)
-      .attr("y", height + margin.top + 20)
+      .attr("text-anchor", "middle")
+      .attr("font-weight", "bold")
+      .attr("x", width / 2)
+      .attr("y", height + margin.top + 25)
       .text("Poverty Percentage (%)");
 
-    //Adding Y Axis Title
+    //Adding yAxis Title
     svg
       .append("text")
-      .attr("text-anchor", "end")
+      .attr("text-anchor", "middle")
+      .attr("font-weight", "bold")
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left + 20)
-      .attr("x", -margin.top)
+      .attr("x", -height / 2)
       .text("Healtcare Percentage (%)");
   })
   .catch((error) => console.error(error));
@@ -117,29 +121,3 @@ function type(d) {
   d.poverty = +d.poverty;
   return d;
 }
-/* // Add X axis
-var x = d3.scaleLinear().domain(d3.extent(xValues)).range([0, width]);
-svg
-  .append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
-
-// Add Y axis
-var y = d3.scaleLinear().domain(d3.extent(yValues)).range([height, 0]);
-svg.append("g").call(d3.axisLeft(y));
-
-svg
-  .append("g")
-  .selectAll("dot")
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("cx", function (d) {
-    return x(+d.healthcare);
-  })
-  .attr("cy", function (d) {
-    return y(+d.poverty);
-  })
-  .attr("r", 1.5)
-  .style("fill", "#69b3a2");
- */
